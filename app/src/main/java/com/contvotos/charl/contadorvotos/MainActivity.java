@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.Adapter mAdapter = new MyAdapter(pasaDatos,  new ClickListener() {
             @Override
             public void onPositionClicked(View v, int position) {
-
+/*
                 if(v.getId() == R.id.btn_mas) {
                     int aux = listaSindicatos.get(position).getVotos()+1;
                     listaSindicatos.get(position).setVotos(aux);
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     int aux = listaSindicatos.get(position).getVotos()-1;
                     listaSindicatos.get(position).setVotos(aux);
                 }
+                */
             }
         });
 

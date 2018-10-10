@@ -19,7 +19,8 @@ public class MyAdapter extends RecyclerView.Adapter {
     private static ArrayList<Sindicato> listaSindicatos;
 
     public static class SindicatoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        // each data item is just a string in this case
+
+        // Elementos de la vista a cargar
         TextView nombreSindicato;
         EditText numVotos;
         Button anhade, quita;
@@ -39,25 +40,29 @@ public class MyAdapter extends RecyclerView.Adapter {
             numVotos.setOnClickListener(this);
         }
 
-
-
-
         @Override
         public void onClick(View v) {
-            int numVotosAux = Integer.parseInt(numVotos.getText().toString());
+            int numVotosAux = 0;
+            if(!numVotos.getText().toString().equals("")){
+                numVotosAux = Integer.parseInt(numVotos.getText().toString());
+            }
             switch (v.getId()) {
                 case R.id.btn_mas:
+                    if(numVotosAux < Integer.MAX_VALUE)
                     numVotosAux++;
                     numVotos.setText(String.valueOf(numVotosAux));
                     break;
                 case R.id.btn_menos:
-                    numVotosAux--;
-                    numVotos.setText(String.valueOf(numVotosAux));
+                    if(numVotosAux > 0) {
+                        numVotosAux--;
+                        numVotos.setText(String.valueOf(numVotosAux));
+                    }
                     break;
                 case R.id.num_votos:
-                    listaSindicatos.get(getAdapterPosition()).setVotos(Integer.parseInt(numVotos.getText().toString()));
+                    //listaSindicatos.get(getAdapterPosition()).setVotos(numVotosAux);
                     break;
             }
+            listaSindicatos.get(getAdapterPosition()).setVotos(numVotosAux);
             listenerRef.get().onPositionClicked(v, getAdapterPosition());
         }
     }
@@ -75,7 +80,6 @@ public class MyAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ((SindicatoViewHolder) viewHolder).nombreSindicato.setText(String.valueOf(listaSindicatos.get(i).getNombre()));
-        //((SindicatoViewHolder) viewHolder).numVotos.setText(String.valueOf(listaSindicatos.get(i).getVotos()));
     }
 
     @Override
