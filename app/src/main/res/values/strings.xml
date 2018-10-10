@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ContadorVotos</string>
+
+    <array name="listaNombres">
+        <item>CCOO</item>
+        <item>UGT</item>
+        <item>USO</item>
+        <item>CSIF</item>
+        <item>Independientes</item>
+        <item>SUC</item>
+        <item>Blancos</item>
+        <item>Nulos</item>
+    </array>
+</resources>
