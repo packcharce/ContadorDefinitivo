@@ -137,4 +137,29 @@ public class CalculadoraTest {
         assertEquals(57, Calculadora.calculaTotalVotos(listaSindicatos));
         listaSindicatos[0].setVotos(7);
     }
+
+    @Test
+    public void extraeEnterosDeRatios() {
+        Sindicato s = listaSindicatos[0];
+        s.setVotos(7);
+        listaColegios[0] = new Colegio(4);
+        listaColegios[1] = new Colegio(5);
+        Calculadora.calculaRatiosSindicato(
+                s,
+                Calculadora.calculaTotalVotos(listaSindicatos),
+                listaSindicatos[6].getVotos(),
+                listaSindicatos[7].getVotos(),
+                listaColegios
+        );
+
+        Calculadora.extraeEnterosDeRatios(s);
+
+        assertEquals(0, s.getNumerosRatios()[0][0]);
+        assertEquals(6, s.getNumerosRatios()[0][1]);
+        assertEquals(2, s.getNumerosRatios()[0][2]);
+
+        assertEquals(0, s.getNumerosRatios()[1][0]);
+        assertEquals(7, s.getNumerosRatios()[1][1]);
+        assertEquals(7, s.getNumerosRatios()[1][2]);
+    }
 }

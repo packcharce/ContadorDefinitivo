@@ -36,4 +36,23 @@ class Calculadora {
         return res;
     }
 
+    static void extraeEnterosDeRatios(Sindicato sindicato){
+
+
+        for (int i = 0; i < sindicato.getRatios().length; i++) {
+            String aux = String.valueOf(sindicato.getRatios()[i]);
+
+            byte j = 0;
+            byte k = 0;
+            while(k != 3 && sindicato.getRatios()[i] != 0.0) {
+                char c = aux.charAt(j);
+                if (c != '.' && c != ',') {
+                    sindicato.getNumerosRatios()[i][k] = Integer.valueOf(String.valueOf(aux.charAt(j)));
+                    k++;
+                }
+                j++;
+            }
+        }
+    }
+
 }

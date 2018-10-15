@@ -4,6 +4,7 @@ public class Sindicato {
     private int id;
     private String nombre;
     private int votos;
+    private int[][] numerosRatios;
 
     // 0 => tecnicos
     // 1 => especialistas
@@ -14,6 +15,15 @@ public class Sindicato {
         this.votos = 0;
         this.nombre = nombre;
         ratios = new float[3];
+        numerosRatios = new int[ratios.length][3];
+    }
+
+    public int[][] getNumerosRatios() {
+        return numerosRatios;
+    }
+
+    public void setNumerosRatios(int[][] numerosRatios) {
+        this.numerosRatios = numerosRatios;
     }
 
     int getVotos() {
