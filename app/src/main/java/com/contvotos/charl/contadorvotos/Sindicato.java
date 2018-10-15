@@ -5,13 +5,15 @@ public class Sindicato {
     private String nombre;
     private int votos;
 
+    // 0 => tecnicos
+    // 1 => especialistas
+    // 2 => otros
+    private float[] ratios;
 
-    Sindicato() {
-    }
-
-    public Sindicato(String nombre) {
+    Sindicato(String nombre) {
         this.votos = 0;
         this.nombre = nombre;
+        ratios = new float[3];
     }
 
     int getVotos() {
@@ -36,6 +38,14 @@ public class Sindicato {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public float[] getRatios() {
+        return ratios;
+    }
+
+    public void setRatios(float[] ratios) {
+        this.ratios = ratios;
     }
 
     @Override
