@@ -2,9 +2,10 @@ package com.contvotos.charl.contadorvotos;
 
 public class Colegio {
 
+    // Son los que tienen que sumar 5,9,etc.
     private int representantes;
 
-    public Colegio() {
+    Colegio() {
         representantes = 0;
     }
 
@@ -19,7 +20,6 @@ public class Colegio {
     void setRepresentantes(int representantes) {
         this.representantes = representantes;
     }
-
 
     @Override
     public String toString() {

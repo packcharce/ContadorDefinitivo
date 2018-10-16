@@ -162,4 +162,27 @@ public class CalculadoraTest {
         assertEquals(7, s.getNumerosRatios()[1][1]);
         assertEquals(7, s.getNumerosRatios()[1][2]);
     }
+
+    @Test
+    public void asignaVotosASindicato() {
+        Sindicato s = listaSindicatos[2];
+        s.setVotos(12);
+        listaColegios[0] = new Colegio(4);
+        listaColegios[1] = new Colegio(5);
+        Calculadora.calculaRatiosSindicato(
+                s,
+                Calculadora.calculaTotalVotos(listaSindicatos),
+                listaSindicatos[6].getVotos(),
+                listaSindicatos[7].getVotos(),
+                listaColegios
+        );
+
+        Calculadora.extraeEnterosDeRatios(s);
+
+        Calculadora.asignaVotosASindicato(s);
+
+        assertEquals(1, s.getElegidos()[0]);
+        assertEquals(1, s.getElegidos()[1]);
+        assertEquals(0, s.getElegidos()[2]);
+    }
 }

@@ -1,24 +1,37 @@
 package com.contvotos.charl.contadorvotos;
 
 public class Sindicato {
-    private int id;
     private String nombre;
     private int votos;
+
+    // [0] => tecnicos
+    // [1] => especialistas
+    // [2] => otros
     private int[][] numerosRatios;
 
     // 0 => tecnicos
     // 1 => especialistas
     // 2 => otros
     private float[] ratios;
+    private int[] elegidos;
 
     Sindicato(String nombre) {
         this.votos = 0;
+        this.elegidos = new int[3];
         this.nombre = nombre;
         ratios = new float[3];
         numerosRatios = new int[ratios.length][3];
     }
 
-    public int[][] getNumerosRatios() {
+    public int[] getElegidos() {
+        return elegidos;
+    }
+
+    public void setElegidos(int[] elegidos) {
+        this.elegidos = elegidos;
+    }
+
+    int[][] getNumerosRatios() {
         return numerosRatios;
     }
 
@@ -34,7 +47,7 @@ public class Sindicato {
         this.votos = votos;
     }
 
-     String getNombre() {
+    String getNombre() {
         return nombre;
     }
 
@@ -42,15 +55,7 @@ public class Sindicato {
         this.nombre = nombre;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public float[] getRatios() {
+    float[] getRatios() {
         return ratios;
     }
 
@@ -58,12 +63,8 @@ public class Sindicato {
         this.ratios = ratios;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Sindicato sindicato = (Sindicato) o;
-        return id == sindicato.id;
+    int compareTo(Sindicato sindicato, int colegio, int decimal){
+        return Integer.compare(sindicato.getNumerosRatios()[colegio][decimal], this.getNumerosRatios()[colegio][decimal]);
     }
 
     @Override
