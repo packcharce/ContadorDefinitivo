@@ -4,11 +4,13 @@ public class Sindicato {
     private String nombre;
     private int votos;
 
-    // [0] => tecnicos
-    // [1] => especialistas
-    // [2] => otros
+    // Numeros individuales tras extraerlos de los decimales
+    // [0][] => tecnicos
+    // [1][] => especialistas
+    // [2][] => otros
     private int[][] numerosRatios;
 
+    // Numeros decimales con los ratios
     // 0 => tecnicos
     // 1 => especialistas
     // 2 => otros

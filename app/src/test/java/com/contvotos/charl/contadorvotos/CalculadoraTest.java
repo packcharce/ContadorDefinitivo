@@ -12,6 +12,10 @@ public class CalculadoraTest {
     private Sindicato[] listaSindicatos = new Sindicato[8];
     private Colegio[] listaColegios = new Colegio[3];
 
+    /**
+     * Paso 1
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         listaSindicatos[0] = new Sindicato("Test 1");
@@ -36,6 +40,9 @@ public class CalculadoraTest {
         listaColegios[2] = new Colegio();
     }
 
+    /**
+     * Paso 2
+     */
     @Test
     public void compruebaSumaColegios() {
         assertFalse(Calculadora.compruebaSumaColegios(listaColegios));
@@ -53,6 +60,20 @@ public class CalculadoraTest {
         assertFalse(Calculadora.compruebaSumaColegios(listaColegios));
     }
 
+    /**
+     * Paso 3
+     */
+    @Test
+    public void calculaTotalVotos() {
+        assertEquals(58, Calculadora.calculaTotalVotos(listaSindicatos));
+        listaSindicatos[0].setVotos(6);
+        assertEquals(57, Calculadora.calculaTotalVotos(listaSindicatos));
+        listaSindicatos[0].setVotos(7);
+    }
+
+    /**
+     * Paso 4
+     */
     @Test
     public void calculaRatiosSindicato() {
         listaSindicatos[0].setVotos(7);
@@ -130,14 +151,10 @@ public class CalculadoraTest {
         //endregion
     }
 
-    @Test
-    public void calculaTotalVotos() {
-        assertEquals(58, Calculadora.calculaTotalVotos(listaSindicatos));
-        listaSindicatos[0].setVotos(6);
-        assertEquals(57, Calculadora.calculaTotalVotos(listaSindicatos));
-        listaSindicatos[0].setVotos(7);
-    }
 
+    /**
+     * Paso 5
+     */
     @Test
     public void extraeEnterosDeRatios() {
         Sindicato s = listaSindicatos[0];
@@ -152,7 +169,7 @@ public class CalculadoraTest {
                 listaColegios
         );
 
-        Calculadora.extraeEnterosDeRatios(s);
+        Calculadora.extraeNumerosDeRatios(s);
 
         assertEquals(0, s.getNumerosRatios()[0][0]);
         assertEquals(6, s.getNumerosRatios()[0][1]);
@@ -163,6 +180,9 @@ public class CalculadoraTest {
         assertEquals(7, s.getNumerosRatios()[1][2]);
     }
 
+    /**
+     * Paso 5
+     */
     @Test
     public void asignaVotosASindicato() {
         Sindicato s = listaSindicatos[2];
@@ -177,7 +197,7 @@ public class CalculadoraTest {
                 listaColegios
         );
 
-        Calculadora.extraeEnterosDeRatios(s);
+        Calculadora.extraeNumerosDeRatios(s);
 
         Calculadora.asignaVotosASindicato(s);
 
