@@ -3,9 +3,12 @@ package com.contvotos.charl.contadorvotos;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class CalculadoraTest {
 
@@ -24,8 +27,8 @@ public class CalculadoraTest {
         listaSindicatos[3] = new Sindicato("Test 4");
         listaSindicatos[4] = new Sindicato("Test 5");
         listaSindicatos[5] = new Sindicato("Test 6");
-        listaSindicatos[6] = new Sindicato("Test 7");
-        listaSindicatos[7] = new Sindicato("Test 8");
+        listaSindicatos[6] = new Sindicato("Blancos");
+        listaSindicatos[7] = new Sindicato("Nulos");
         listaSindicatos[0].setVotos(7);
         listaSindicatos[1].setVotos(9);
         listaSindicatos[2].setVotos(12);
@@ -47,10 +50,10 @@ public class CalculadoraTest {
     public void compruebaSumaColegios() {
         assertFalse(Calculadora.compruebaSumaColegios(listaColegios));
 
-        listaColegios[0] = new Colegio(3);
+        listaColegios[0] = new Colegio("Tecnicos",3);
         assertFalse(Calculadora.compruebaSumaColegios(listaColegios));
 
-        listaColegios[1] = new Colegio(2);
+        listaColegios[1] = new Colegio("Especialistas",2);
         assertTrue(Calculadora.compruebaSumaColegios(listaColegios));
 
         listaColegios[2] = new Colegio();
@@ -84,8 +87,8 @@ public class CalculadoraTest {
         listaSindicatos[5].setVotos(8);
         listaSindicatos[6].setVotos(5);
         listaSindicatos[7].setVotos(8);
-        listaColegios[0] = new Colegio(4);
-        listaColegios[1] = new Colegio(5);
+        listaColegios[0] = new Colegio("Tecnicos",4);
+        listaColegios[1] = new Colegio("Especialistas",5);
 
         for (Sindicato s :
                 listaSindicatos) {
@@ -159,8 +162,8 @@ public class CalculadoraTest {
     public void extraeEnterosDeRatios() {
         Sindicato s = listaSindicatos[0];
         s.setVotos(7);
-        listaColegios[0] = new Colegio(4);
-        listaColegios[1] = new Colegio(5);
+        listaColegios[0] = new Colegio("Tecnicos",4);
+        listaColegios[1] = new Colegio("Especialistas",5);
         Calculadora.calculaRatiosSindicato(
                 s,
                 Calculadora.calculaTotalVotos(listaSindicatos),
@@ -187,8 +190,8 @@ public class CalculadoraTest {
     public void asignaVotosASindicato() {
         Sindicato s = listaSindicatos[2];
         s.setVotos(12);
-        listaColegios[0] = new Colegio(4);
-        listaColegios[1] = new Colegio(5);
+        listaColegios[0] = new Colegio("Tecnicos",4);
+        listaColegios[1] = new Colegio("Especialistas",5);
         Calculadora.calculaRatiosSindicato(
                 s,
                 Calculadora.calculaTotalVotos(listaSindicatos),
@@ -204,5 +207,103 @@ public class CalculadoraTest {
         assertEquals(1, s.getElegidos()[0]);
         assertEquals(1, s.getElegidos()[1]);
         assertEquals(0, s.getElegidos()[2]);
+    }
+
+    /**
+     * Paso 5
+     */
+    @Test
+    public void compruebaRepetidosPorColegio() {
+        listaSindicatos[0].setVotos(7);
+        listaSindicatos[1].setVotos(9);
+        listaSindicatos[2].setVotos(12);
+        listaSindicatos[3].setVotos(4);
+        listaSindicatos[4].setVotos(5);
+        listaSindicatos[5].setVotos(8);
+        listaSindicatos[6].setVotos(5);
+        listaSindicatos[7].setVotos(8);
+        listaColegios[0] = new Colegio("Tecnicos",4);
+        listaColegios[1] = new Colegio("Especialistas",5);
+
+        for (Sindicato s : listaSindicatos) {
+            Calculadora.calculaRatiosSindicato(
+                    s,
+                    Calculadora.calculaTotalVotos(listaSindicatos),
+                    listaSindicatos[6].getVotos(),
+                    listaSindicatos[7].getVotos(),
+                    listaColegios
+            );
+
+            Calculadora.extraeNumerosDeRatios(s);
+            Calculadora.asignaVotosASindicato(s);
+        }
+
+        Calculadora.asignaVotosASindicatoPorDecimales(listaSindicatos, listaColegios);
+        // Tecnicos
+        assertEquals(listaSindicatos[0].getElegidos()[0], 1);
+        assertEquals(listaSindicatos[1].getElegidos()[0], 1);
+        assertEquals(listaSindicatos[2].getElegidos()[0], 0);
+        assertEquals(listaSindicatos[3].getElegidos()[0], 0);
+        assertEquals(listaSindicatos[4].getElegidos()[0], 1);
+        assertEquals(listaSindicatos[5].getElegidos()[0], 1);
+
+        //Especialistas
+        assertEquals(listaSindicatos[0].getElegidos()[1], 1);
+        assertEquals(listaSindicatos[1].getElegidos()[1], 1);
+        assertEquals(listaSindicatos[2].getElegidos()[1], 1);
+        assertEquals(listaSindicatos[3].getElegidos()[1], 0);
+        assertEquals(listaSindicatos[4].getElegidos()[1], 1);
+        assertEquals(listaSindicatos[5].getElegidos()[1], 1);
+
+    }
+
+    @Test
+    public void todoProceso() {
+        listaSindicatos[0].setVotos(13);
+        listaSindicatos[1].setVotos(16);
+        listaSindicatos[2].setVotos(7);
+        listaSindicatos[3].setVotos(17);
+        listaSindicatos[4].setVotos(23);
+        listaSindicatos[5].setVotos(10);
+        listaSindicatos[6].setVotos(16);
+        listaSindicatos[7].setVotos(11);
+        listaColegios[0] = new Colegio("Tecnicos",3);
+        listaColegios[1] = new Colegio("Especialistas", 2);
+
+        for (Sindicato s : listaSindicatos) {
+            Calculadora.calculaRatiosSindicato(
+                    s,
+                    Calculadora.calculaTotalVotos(listaSindicatos),
+                    listaSindicatos[6].getVotos(),
+                    listaSindicatos[7].getVotos(),
+                    listaColegios
+            );
+
+            Calculadora.extraeNumerosDeRatios(s);
+            Calculadora.asignaVotosASindicato(s);
+        }
+
+        try {
+            Calculadora.asignaVotosASindicatoPorDecimales(listaSindicatos, listaColegios);
+            fail("Expected an UnsupportedOperationException to be thrown");
+        }catch(UnsupportedOperationException uex) {
+                assertThat(uex.getMessage(), is("Hay dos coincidencias de decimales"));
+        }
+
+        // Tecnicos
+        assertEquals(listaSindicatos[0].getElegidos()[0], 1);
+        assertEquals(listaSindicatos[1].getElegidos()[0], 1);
+        assertEquals(listaSindicatos[2].getElegidos()[0], 0);
+        assertEquals(listaSindicatos[3].getElegidos()[0], 1);
+        assertEquals(listaSindicatos[4].getElegidos()[0], 0);
+        assertEquals(listaSindicatos[5].getElegidos()[0], 0);
+
+        //Especialistas
+        assertEquals(listaSindicatos[0].getElegidos()[1], 1);
+        assertEquals(listaSindicatos[1].getElegidos()[1], 0);
+        assertEquals(listaSindicatos[2].getElegidos()[1], 0);
+        assertEquals(listaSindicatos[3].getElegidos()[1], 1);
+        assertEquals(listaSindicatos[4].getElegidos()[1], 0);
+        assertEquals(listaSindicatos[5].getElegidos()[1], 0);
     }
 }

@@ -3,7 +3,7 @@ package com.contvotos.charl.contadorvotos;
 class Calculadora {
 
     private static final int SUMA_CINCO = 5, SUMA_NUEVE = 9, SUMA_TRECE = 13;
-
+    private static final int RESTA_NO_SINDICATOS = 2;
 
     /**
      * Paso 1
@@ -98,79 +98,129 @@ class Calculadora {
      * @return el numero de representantes extra que hay que sacar de
      * los decimales
      */
-    static int compruebaTotalEnteros(Sindicato[] listaSindicatos, int maxColegio){
+    private static int compruebaTotalEnteros(Sindicato[] listaSindicatos, int maxRepresentantesColegio, int colegio){
         int sumaTotal=0;
-        for(Sindicato s: listaSindicatos){
-            sumaTotal += s.getNumerosRatios()[0][0];
+        for(int i = 0; i < listaSindicatos.length-RESTA_NO_SINDICATOS; i++){
+
+            sumaTotal += listaSindicatos[i].getNumerosRatios()[colegio][0];
+
         }
-        if(sumaTotal == maxColegio){
+        if(sumaTotal == maxRepresentantesColegio){
             return 0;
         }else{
-            return maxColegio - sumaTotal;
+            return maxRepresentantesColegio - sumaTotal;
         }
     }
 
     /**
-     * Comprueba si hay decimales repetidos por colegio
+     * Comprueba si hay mas decimales repetidos por colegio
+     * que el maximo que debieran ser, resultado de @compruebaTotalEnteros
      * @param sindicatos lista de sindicatos
      * @param colegioAComprobar el colegio que hay que comprobar
      * @param posDecimal que decimal hay que comprobar si repetido
      * @return true si hay repetidos
      */
-    private boolean compruebaRepetidosPorColegio(Sindicato[] sindicatos, int colegioAComprobar, int posDecimal) {
-        int aux = -1;
-        int aux2 = -1;
-        for (int i = 0; i < sindicatos.length-1; i++) {
-            aux = sindicatos[i].getNumerosRatios()[colegioAComprobar][i];
-            for(int j = 1; j < sindicatos.length; j++){
-                aux2 = sindicatos[i].getNumerosRatios()[colegioAComprobar][j];
-
+    private static boolean compruebaRepetidosPorColegio(Sindicato[] sindicatos, int colegioAComprobar, int posDecimal, int numMaxDeRepetidos) {
+        int aux;
+        int aux2;
+        int auxMaxRepetidos=0;
+        for (int i = 0; i < sindicatos.length-1-RESTA_NO_SINDICATOS; i++) {
+            aux = sindicatos[i].getNumerosRatios()[colegioAComprobar][posDecimal];
+            for(int j = i+1; j < sindicatos.length-RESTA_NO_SINDICATOS; j++){
+                aux2 = sindicatos[j].getNumerosRatios()[colegioAComprobar][posDecimal];
                 if(aux == aux2){
-                    return true;
+                    auxMaxRepetidos++;
                 }
             }
         }
-        return false;
+        return auxMaxRepetidos >= numMaxDeRepetidos;
     }
 
-    private void asignaVotosASindicatoPorDecimales(Sindicato[] sindicatos, int maxColegio, int COLEGIO_A_COMPROBAR) {
-        final int POS_DECIMAL = 0;
+    static void asignaVotosASindicatoPorDecimales(Sindicato[] sindicatos, Colegio[] listaColegios) {
+        // Cambiar
+        final int POS_DECIMAL = 1;
 
-        // Comprueba si hay decimales repetidos
-        if (compruebaRepetidosPorColegio(sindicatos, COLEGIO_A_COMPROBAR, POS_DECIMAL)) {
+        for(int i =0; i<listaColegios.length; i++) {
+            int totalVotosExtra = compruebaTotalEnteros(sindicatos, listaColegios[i].getRepresentantes(), i);
 
-            // Si no se repite ninguno, se ordenan de mayor a menor
-            // y se asignan hasta llegar al tope de tecnicos/especialistas
-            ordenaPorColegioYDecimal(sindicatos, COLEGIO_A_COMPROBAR, POS_DECIMAL);
-            if(sindicatos.length >= maxColegio) {
-                for (int i = 0; i < maxColegio; i++) {
-                    sindicatos[i].getElegidos()[COLEGIO_A_COMPROBAR] += 1;
+            // Comprueba si hay decimales repetidos
+            boolean hayRepetidos = compruebaRepetidosPorColegio(sindicatos, i, POS_DECIMAL, totalVotosExtra);
+            if (!hayRepetidos) {
+
+                // Si no se repite ninguno, se ordenan de mayor a menor
+                // y se asignan hasta llegar al tope de tecnicos/especialistas
+                ordenaPorColegioYDecimal(sindicatos, i, POS_DECIMAL);
+                if (sindicatos.length >= listaColegios[i].getRepresentantes()) {
+                    for (int j = 0; j < totalVotosExtra; j++) {
+                        sindicatos[j].getElegidos()[i] += 1;
+                    }
+                } else {
+                    for (Sindicato sindicato : sindicatos) {
+                        sindicato.getElegidos()[i] += 1;
+                    }
+                    for (int j = 0; j < listaColegios[i].getRepresentantes() - sindicatos.length; j++) {
+                        sindicatos[j].getElegidos()[i] += 1;
+                    }
                 }
-            }else{
-                for (Sindicato sindicato : sindicatos) {
-                    sindicato.getElegidos()[COLEGIO_A_COMPROBAR] += 1;
-                }
-                for (int j = 0; j < maxColegio-sindicatos.length; j++) {
-                    sindicatos[j].getElegidos()[COLEGIO_A_COMPROBAR] += 1;
-                }
+
             }
 
+            // Si hay decimales repetidos
+            else {
+                asignaSiHayRepetidosPrimerDecimal(sindicatos, listaColegios, POS_DECIMAL, i, totalVotosExtra);
+            }
         }
+    }
 
-        // Si hay decimales repetidos
-        else {
-            // Compruebo si hay repeticiones en los segundos decimales, para lanzar error
-            if(compruebaRepetidosPorColegio(sindicatos, COLEGIO_A_COMPROBAR, POS_DECIMAL+1)){
+    private static void asignaSiHayRepetidosPrimerDecimal(Sindicato[] sindicatos, Colegio[] listaColegios, int POS_DECIMAL, int i, int totalVotosExtra) {
+        ordenaPorColegioYDecimal(sindicatos, i, POS_DECIMAL);
+        if (sindicatos.length >= listaColegios[i].getRepresentantes()) {
+            for (int j = 0; j < totalVotosExtra; j++) {
+                try {
+                    if (sindicatos[j].getNumerosRatios()[i][POS_DECIMAL] != sindicatos[j + 1].getNumerosRatios()[i][POS_DECIMAL]) {
+                        sindicatos[j].getElegidos()[i] += 1;
+                    }else{
+                        asignaSiHayRepetidosSegundoDecimal(sindicatos, listaColegios, POS_DECIMAL, i, totalVotosExtra-j);
+                    }
+                }catch (IndexOutOfBoundsException iex){
+                    sindicatos[j].getElegidos()[i] += 1;
+                }
+            }
+        } else {
+            for (Sindicato sindicato : sindicatos) {
+                sindicato.getElegidos()[i] += 1;
+            }
+            for (int j = 0; j < listaColegios[i].getRepresentantes() - sindicatos.length; j++) {
+                sindicatos[j].getElegidos()[i] += 1;
+            }
+        }
+    }
+
+    private static void asignaSiHayRepetidosSegundoDecimal(Sindicato[] sindicatos, Colegio[] listaColegios, int POS_DECIMAL, int i, int totalVotosExtra) {
+        // Compruebo si hay repeticiones en los segundos decimales, para lanzar error
+        boolean hayRepetidos2 = compruebaRepetidosPorColegio(sindicatos, i, POS_DECIMAL + 1, totalVotosExtra);
+        if (hayRepetidos2) {
+            if(listaColegios[i].getRepresentantes() != 0)
                 throw new UnsupportedOperationException("Hay dos coincidencias de decimales");
-            }
-            else{
-
+        } else {
+            ordenaPorColegioYDecimal(sindicatos, i, POS_DECIMAL+1);
+            if (sindicatos.length >= listaColegios[i].getRepresentantes()) {
+                for (int j = 0; j < totalVotosExtra; j++) {
+                    sindicatos[j].getElegidos()[i] += 1;
+                }
+            } else {
+                for (Sindicato sindicato : sindicatos) {
+                    sindicato.getElegidos()[i] += 1;
+                }
+                for (int j = 0; j < listaColegios[i].getRepresentantes() - sindicatos.length; j++) {
+                    sindicatos[j].getElegidos()[i] += 1;
+                }
             }
         }
     }
 
-    private void ordenaPorColegioYDecimal(Sindicato[] sindicatos, int colegio, int decimal) {
-        int n = sindicatos.length;
+    private static void ordenaPorColegioYDecimal(Sindicato[] sindicatos, int colegio, int decimal) {
+        int n = sindicatos.length - RESTA_NO_SINDICATOS;
         Sindicato aux;
 
         for (int i = 0; i < n; i++) {

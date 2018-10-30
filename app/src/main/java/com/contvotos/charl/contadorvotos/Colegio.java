@@ -4,12 +4,14 @@ public class Colegio {
 
     // Son los que tienen que sumar 5,9,etc.
     private int representantes;
+    private String nombre;
 
     Colegio() {
         representantes = 0;
     }
 
-    Colegio(int representantes) {
+    Colegio(String nombre, int representantes) {
+        this.nombre = nombre;
         this.representantes = representantes;
     }
 
@@ -21,10 +23,18 @@ public class Colegio {
         this.representantes = representantes;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     @Override
     public String toString() {
-        return "Colegio{" +
-                "representantes=" + representantes +
+        return "Colegio{" + "nombre: " + nombre +
+                " representantes=" + representantes +
                 '}';
     }
 }
