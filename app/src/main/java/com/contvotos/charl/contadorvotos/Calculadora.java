@@ -115,6 +115,10 @@ class Calculadora {
     /**
      * Comprueba si hay mas decimales repetidos por colegio
      * que el maximo que debieran ser, resultado de @compruebaTotalEnteros
+     *
+     * O sea, si hay en total 3 de los enteros y hacen falta 2 mas, que los haya
+     * antes de que empiecen las repeticiones
+     *
      * @param sindicatos lista de sindicatos
      * @param colegioAComprobar el colegio que hay que comprobar
      * @param posDecimal que decimal hay que comprobar si repetido
@@ -136,6 +140,14 @@ class Calculadora {
         return auxMaxRepetidos >= numMaxDeRepetidos;
     }
 
+    /**
+     *
+     * Metodo que hace va asignando los votos restantes hasta completar
+     * ordenando los sindicatos por el decimal asignado de mayor a menor.
+     *
+     * @param sindicatos
+     * @param listaColegios
+     */
     static void asignaVotosASindicatoPorDecimales(Sindicato[] sindicatos, Colegio[] listaColegios) {
         // Cambiar
         final int POS_DECIMAL = 1;
@@ -143,8 +155,19 @@ class Calculadora {
         for(int i =0; i<listaColegios.length; i++) {
             int totalVotosExtra = compruebaTotalEnteros(sindicatos, listaColegios[i].getRepresentantes(), i);
 
+
+            //region Codigo antiguo
+            /*
+             * Preguntar que pasa si hay repetidos: si se reparten hasta llegar a la repeticion
+             * o directamente se salta al segundo decimal
+             */
             // Comprueba si hay decimales repetidos
             boolean hayRepetidos = compruebaRepetidosPorColegio(sindicatos, i, POS_DECIMAL, totalVotosExtra);
+
+            /*
+             * Aqui si no hay suficientes repetidos como para que se tenga
+             * que comprobar el primer decimal
+             */
             if (!hayRepetidos) {
 
                 // Si no se repite ninguno, se ordenan de mayor a menor
@@ -165,22 +188,56 @@ class Calculadora {
 
             }
 
-            // Si hay decimales repetidos
+            // Si hay decimales repetidos, y no dan para asignar todos los votos
             else {
                 asignaSiHayRepetidosPrimerDecimal(sindicatos, listaColegios, POS_DECIMAL, i, totalVotosExtra);
+            }
+            //endregion
+
+            if (sindicatos.length >= listaColegios[i].getRepresentantes()) {
+                for (int j = 0; j < totalVotosExtra; j++) {
+                    try {
+                        if (sindicatos[j].getNumerosRatios()[i][POS_DECIMAL] != sindicatos[j + 1].getNumerosRatios()[i][POS_DECIMAL]) {
+                            sindicatos[j].getElegidos()[i] += 1;
+                        }else{
+                            asignaSiHayRepetidosSegundoDecimal(sindicatos, listaColegios, POS_DECIMAL+1, i, totalVotosExtra-j);
+                        }
+                    }catch (IndexOutOfBoundsException iex){
+                        sindicatos[j].getElegidos()[i] += 1;
+                    }
+                }
+            } else {
+                for (Sindicato sindicato : sindicatos) {
+                    sindicato.getElegidos()[i] += 1;
+                }
+                for (int j = 0; j < listaColegios[i].getRepresentantes() - sindicatos.length; j++) {
+                    sindicatos[j].getElegidos()[i] += 1;
+                }
             }
         }
     }
 
     private static void asignaSiHayRepetidosPrimerDecimal(Sindicato[] sindicatos, Colegio[] listaColegios, int POS_DECIMAL, int i, int totalVotosExtra) {
+
+        /*
+         * Ordeno por el primer decimal de mayor a menor
+         */
         ordenaPorColegioYDecimal(sindicatos, i, POS_DECIMAL);
+
+        /*
+         * Compruebo si puedo asignar los votos o se va a quedar alguno sin
+         * poder repartir
+         */
+        if(compruebaRepetidosPorColegio(sindicatos,i,POS_DECIMAL,totalVotosExtra)){
+            throw new UnsupportedOperationException("Hay dos coincidencias de decimales");
+        }
         if (sindicatos.length >= listaColegios[i].getRepresentantes()) {
             for (int j = 0; j < totalVotosExtra; j++) {
                 try {
                     if (sindicatos[j].getNumerosRatios()[i][POS_DECIMAL] != sindicatos[j + 1].getNumerosRatios()[i][POS_DECIMAL]) {
                         sindicatos[j].getElegidos()[i] += 1;
                     }else{
-                        asignaSiHayRepetidosSegundoDecimal(sindicatos, listaColegios, POS_DECIMAL, i, totalVotosExtra-j);
+                        asignaSiHayRepetidosSegundoDecimal(sindicatos, listaColegios, POS_DECIMAL+1, i, totalVotosExtra-j);
                     }
                 }catch (IndexOutOfBoundsException iex){
                     sindicatos[j].getElegidos()[i] += 1;
@@ -198,12 +255,12 @@ class Calculadora {
 
     private static void asignaSiHayRepetidosSegundoDecimal(Sindicato[] sindicatos, Colegio[] listaColegios, int POS_DECIMAL, int i, int totalVotosExtra) {
         // Compruebo si hay repeticiones en los segundos decimales, para lanzar error
-        boolean hayRepetidos2 = compruebaRepetidosPorColegio(sindicatos, i, POS_DECIMAL + 1, totalVotosExtra);
+        boolean hayRepetidos2 = compruebaRepetidosPorColegio(sindicatos, i, POS_DECIMAL, totalVotosExtra);
         if (hayRepetidos2) {
             if(listaColegios[i].getRepresentantes() != 0)
                 throw new UnsupportedOperationException("Hay dos coincidencias de decimales");
         } else {
-            ordenaPorColegioYDecimal(sindicatos, i, POS_DECIMAL+1);
+            ordenaPorColegioYDecimal(sindicatos, i, POS_DECIMAL);
             if (sindicatos.length >= listaColegios[i].getRepresentantes()) {
                 for (int j = 0; j < totalVotosExtra; j++) {
                     sindicatos[j].getElegidos()[i] += 1;

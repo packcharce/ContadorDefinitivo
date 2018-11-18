@@ -3,12 +3,13 @@ package com.contvotos.charl.contadorvotos;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class CalculadoraTest {
 
@@ -259,16 +260,16 @@ public class CalculadoraTest {
 
     @Test
     public void todoProceso() {
-        listaSindicatos[0].setVotos(13);
-        listaSindicatos[1].setVotos(16);
-        listaSindicatos[2].setVotos(7);
-        listaSindicatos[3].setVotos(17);
-        listaSindicatos[4].setVotos(23);
-        listaSindicatos[5].setVotos(10);
-        listaSindicatos[6].setVotos(16);
-        listaSindicatos[7].setVotos(11);
-        listaColegios[0] = new Colegio("Tecnicos",3);
-        listaColegios[1] = new Colegio("Especialistas", 2);
+        listaSindicatos[0].setVotos(50);
+        listaSindicatos[1].setVotos(39);
+        listaSindicatos[2].setVotos(62);
+        listaSindicatos[3].setVotos(22);
+        listaSindicatos[4].setVotos(10);
+        listaSindicatos[5].setVotos(5);
+        listaSindicatos[6].setVotos(1);
+        listaSindicatos[7].setVotos(4);
+        listaColegios[0] = new Colegio("Tecnicos",4);
+        listaColegios[1] = new Colegio("Especialistas", 5);
 
         for (Sindicato s : listaSindicatos) {
             Calculadora.calculaRatiosSindicato(
@@ -284,26 +285,33 @@ public class CalculadoraTest {
         }
 
         try {
-            Calculadora.asignaVotosASindicatoPorDecimales(listaSindicatos, listaColegios);
-            fail("Expected an UnsupportedOperationException to be thrown");
+            //Calculadora.asignaVotosASindicatoPorDecimales(listaSindicatos, listaColegios);
+            //fail("Expected an UnsupportedOperationException to be thrown");
+            Calculadora2.asignaVotos(Arrays.copyOf(listaSindicatos, listaSindicatos.length-2), listaColegios);
+
+
+            // Tecnicos
+            assertEquals(listaSindicatos[0].getElegidos()[0], 1);
+            assertEquals(listaSindicatos[1].getElegidos()[0], 1);
+            assertEquals(listaSindicatos[2].getElegidos()[0], 1);
+            assertEquals(listaSindicatos[3].getElegidos()[0], 1);
+            assertEquals(listaSindicatos[4].getElegidos()[0], 0);
+            assertEquals(listaSindicatos[5].getElegidos()[0], 0);
+
+            //Especialistas
+            assertEquals(listaSindicatos[0].getElegidos()[1], 1);
+            assertEquals(listaSindicatos[1].getElegidos()[1], 1);
+            assertEquals(listaSindicatos[2].getElegidos()[1], 2);
+            assertEquals(listaSindicatos[3].getElegidos()[1], 1);
+            assertEquals(listaSindicatos[4].getElegidos()[1], 0);
+            assertEquals(listaSindicatos[5].getElegidos()[1], 0);
         }catch(UnsupportedOperationException uex) {
-                assertThat(uex.getMessage(), is("Hay dos coincidencias de decimales"));
+            assertThat(uex.getMessage(), is("Hay dos coincidencias de decimales"));
+        }
+        catch(Exception ex) {
+            assertThat(ex.getMessage(), is("ERROR, segundos decimales repetidos."));
         }
 
-        // Tecnicos
-        assertEquals(listaSindicatos[0].getElegidos()[0], 1);
-        assertEquals(listaSindicatos[1].getElegidos()[0], 1);
-        assertEquals(listaSindicatos[2].getElegidos()[0], 0);
-        assertEquals(listaSindicatos[3].getElegidos()[0], 1);
-        assertEquals(listaSindicatos[4].getElegidos()[0], 0);
-        assertEquals(listaSindicatos[5].getElegidos()[0], 0);
 
-        //Especialistas
-        assertEquals(listaSindicatos[0].getElegidos()[1], 1);
-        assertEquals(listaSindicatos[1].getElegidos()[1], 0);
-        assertEquals(listaSindicatos[2].getElegidos()[1], 0);
-        assertEquals(listaSindicatos[3].getElegidos()[1], 1);
-        assertEquals(listaSindicatos[4].getElegidos()[1], 0);
-        assertEquals(listaSindicatos[5].getElegidos()[1], 0);
     }
 }

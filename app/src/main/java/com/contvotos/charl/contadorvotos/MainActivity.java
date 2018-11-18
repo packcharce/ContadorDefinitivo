@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Sindicato> listaSindicatos;
+    Button btn_calcular;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mRecyclerView.setAdapter(mAdapter);
+
+        btn_calcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void rellenaSindicatos() {
