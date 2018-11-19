@@ -3,6 +3,8 @@ package com.contvotos.charl.contadorvotos;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +32,9 @@ public class MyAdapter extends RecyclerView.Adapter {
 
             listenerRef = new WeakReference<>(clickListener);
             nombreSindicato = v.findViewById(R.id.nombre_sind);
-            anhade = v.findViewById(R.id.btn_mas);
-            quita = v.findViewById(R.id.btn_menos);
-            numVotos = v.findViewById(R.id.num_votos);
+            anhade = v.findViewById(R.id.btn_mas_ugt);
+            quita = v.findViewById(R.id.btn_menos_ccoo);
+            numVotos = v.findViewById(R.id.num_votos_ccoo);
 
             anhade.setOnClickListener(this);
             quita.setOnClickListener(this);
@@ -47,18 +49,18 @@ public class MyAdapter extends RecyclerView.Adapter {
                 numVotosAux = Integer.parseInt(numVotos.getText().toString());
             }
             switch (v.getId()) {
-                case R.id.btn_mas:
+                case R.id.btn_mas_ugt:
                     if(numVotosAux < Integer.MAX_VALUE)
                     numVotosAux++;
                     numVotos.setText(String.valueOf(numVotosAux));
                     break;
-                case R.id.btn_menos:
+                case R.id.btn_menos_ccoo:
                     if(numVotosAux > 0) {
                         numVotosAux--;
                         numVotos.setText(String.valueOf(numVotosAux));
                     }
                     break;
-                case R.id.num_votos:
+                case R.id.num_votos_ccoo:
                     //listaSindicatos.get(getAdapterPosition()).setVotos(numVotosAux);
                     break;
             }
@@ -78,8 +80,20 @@ public class MyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         ((SindicatoViewHolder) viewHolder).nombreSindicato.setText(String.valueOf(listaSindicatos.get(i).getNombre()));
+        ((SindicatoViewHolder) viewHolder).numVotos.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().equals(""))
+                    listaSindicatos.get(i).setVotos(Integer.parseInt(s.toString()));
+            }
+        });
     }
 
     @Override

@@ -71,9 +71,12 @@ public class Sindicato {
 
     @Override
     public String toString() {
-        return "Sindicato{" +
-                "nombre='" + nombre + '\'' +
-                ", votos=" + votos +
-                '}';
+        return "Sindicato{ " +
+                "nombre= '" + nombre + '\'' +
+                ", votos= " + votos +
+                ", elegidos tecs= "+getElegidos()[0]+
+                ", elegidos esps= "+getElegidos()[1]+
+                ", elegidos otro= "+getElegidos()[2]+
+                " }";
     }
 }

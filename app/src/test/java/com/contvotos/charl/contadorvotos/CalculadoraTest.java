@@ -272,16 +272,16 @@ public class CalculadoraTest {
         listaColegios[1] = new Colegio("Especialistas", 5);
 
         for (Sindicato s : listaSindicatos) {
-            Calculadora.calculaRatiosSindicato(
+            Calculadora2.calculaRatiosSindicato(
                     s,
-                    Calculadora.calculaTotalVotos(listaSindicatos),
+                    Calculadora2.calculaTotalVotos(listaSindicatos),
                     listaSindicatos[6].getVotos(),
                     listaSindicatos[7].getVotos(),
                     listaColegios
             );
 
-            Calculadora.extraeNumerosDeRatios(s);
-            Calculadora.asignaVotosASindicato(s);
+            Calculadora2.extraeNumerosDeRatios(s);
+            Calculadora2.asignaVotosASindicato(s);
         }
 
         try {

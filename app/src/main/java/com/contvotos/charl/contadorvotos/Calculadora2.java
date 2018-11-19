@@ -3,7 +3,7 @@ package com.contvotos.charl.contadorvotos;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Calculadora2 {
+class Calculadora2 {
 
     private static final int SUMA_CINCO = 5, SUMA_NUEVE = 9, SUMA_TRECE = 13;
     private static final int RESTA_NO_SINDICATOS = 0;
@@ -13,7 +13,7 @@ public class Calculadora2 {
      * @param representantes array de colegios (tecnicos, especialistas y otros)
      * @return true si la suma es correcta, false si no lo es
      */
-    static boolean compruebaSumaColegios(Colegio[] representantes) {
+     boolean compruebaSumaColegios(Colegio[] representantes) {
         boolean res = false;
         int aux = 0;
         for (Colegio c : representantes) {
@@ -40,8 +40,10 @@ public class Calculadora2 {
         // 0 => tecnicos
         // 1 => especialistas
         // 2 => otros
-        for (int i = 0; i < colegios.length; i++)
-            sindicato.getRatios()[i] = ((colegios[i].getRepresentantes() * 1.0f) / numVotosValidos * 1.0f) * (sindicato.getVotos() * 1.0f);
+        for (int i = 0; i < colegios.length; i++) {
+            if(numVotosValidos != 0)
+                sindicato.getRatios()[i] = ((colegios[i].getRepresentantes() * 1.0f) / numVotosValidos * 1.0f) * (sindicato.getVotos() * 1.0f);
+        }
     }
 
     /**
@@ -115,7 +117,7 @@ public class Calculadora2 {
         }
     }
 
-    public static void asignaVotos(Sindicato[] sindicatos, Colegio[] colegios) throws Exception {
+    static void asignaVotos(Sindicato[] sindicatos, Colegio[] colegios) throws Exception {
         final int PRIMER_DECIMAL = 1, SEGUNDO_DECIMAL = 2, PARTE_ENTERA = 0;
 
         for (int i = 0; i < colegios.length; i++) {
@@ -229,7 +231,24 @@ public class Calculadora2 {
         }
     }
 
-    public void calcular(){
+    void calcular(Sindicato[] listaSindicatos, Colegio[] listaColegios){
+        for (Sindicato s : listaSindicatos) {
+            Calculadora2.calculaRatiosSindicato(
+                    s,
+                    Calculadora2.calculaTotalVotos(listaSindicatos),
+                    listaSindicatos[6].getVotos(),
+                    listaSindicatos[7].getVotos(),
+                    listaColegios
+            );
 
+            Calculadora2.extraeNumerosDeRatios(s);
+            Calculadora2.asignaVotosASindicato(s);
+        }
+
+        try {
+            asignaVotos(Arrays.copyOf(listaSindicatos, listaSindicatos.length - 2), listaColegios);
+        }catch (Exception e){
+
+        }
     }
 }
