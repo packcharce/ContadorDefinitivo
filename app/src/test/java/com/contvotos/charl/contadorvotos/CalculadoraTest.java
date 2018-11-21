@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class CalculadoraTest {
 
     private Sindicato[] listaSindicatos = new Sindicato[8];
-    private Colegio[] listaColegios = new Colegio[3];
+    private Colegio[] listaColegios = new Colegio[2];
 
     /**
      * Paso 1
@@ -41,7 +41,6 @@ public class CalculadoraTest {
 
         listaColegios[0] = new Colegio();
         listaColegios[1] = new Colegio();
-        listaColegios[2] = new Colegio();
     }
 
     /**
@@ -55,9 +54,6 @@ public class CalculadoraTest {
         assertFalse(Calculadora.compruebaSumaColegios(listaColegios));
 
         listaColegios[1] = new Colegio("Especialistas",2);
-        assertTrue(Calculadora.compruebaSumaColegios(listaColegios));
-
-        listaColegios[2] = new Colegio();
         assertTrue(Calculadora.compruebaSumaColegios(listaColegios));
 
         listaColegios[2].setRepresentantes(1);
@@ -260,14 +256,14 @@ public class CalculadoraTest {
 
     @Test
     public void todoProceso() {
-        listaSindicatos[0].setVotos(50);
-        listaSindicatos[1].setVotos(39);
-        listaSindicatos[2].setVotos(62);
-        listaSindicatos[3].setVotos(22);
-        listaSindicatos[4].setVotos(10);
-        listaSindicatos[5].setVotos(5);
+        listaSindicatos[0].setVotos(25);
+        listaSindicatos[1].setVotos(8);
+        listaSindicatos[2].setVotos(13);
+        listaSindicatos[3].setVotos(0);
+        listaSindicatos[4].setVotos(0);
+        listaSindicatos[5].setVotos(0);
         listaSindicatos[6].setVotos(1);
-        listaSindicatos[7].setVotos(4);
+        listaSindicatos[7].setVotos(2);
         listaColegios[0] = new Colegio("Tecnicos",4);
         listaColegios[1] = new Colegio("Especialistas", 5);
 

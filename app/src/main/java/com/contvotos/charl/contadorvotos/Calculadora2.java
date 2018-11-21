@@ -39,7 +39,6 @@ class Calculadora2 {
 
         // 0 => tecnicos
         // 1 => especialistas
-        // 2 => otros
         for (int i = 0; i < colegios.length; i++) {
             if(numVotosValidos != 0)
                 sindicato.getRatios()[i] = ((colegios[i].getRepresentantes() * 1.0f) / numVotosValidos * 1.0f) * (sindicato.getVotos() * 1.0f);
@@ -146,7 +145,7 @@ class Calculadora2 {
                                 int decimalActualSegundo = aux[k].getNumerosRatios()[i][SEGUNDO_DECIMAL];
                                 int decimalSiguienteSegundo = aux[k+1].getNumerosRatios()[i][SEGUNDO_DECIMAL];
                                 if(decimalActualSegundo == decimalSiguienteSegundo){
-                                    throw new Exception("ERROR, segundos decimales repetidos.");
+                                    throw new UnsupportedOperationException("ERROR, segundos decimales repetidos.");
                                 }else{
                                     aux[k].getElegidos()[i]++;
                                 }
@@ -161,7 +160,7 @@ class Calculadora2 {
                                 int decimalActualSegundo = aux[k].getNumerosRatios()[i][SEGUNDO_DECIMAL];
                                 int decimalSiguienteSegundo = aux[k+1].getNumerosRatios()[i][SEGUNDO_DECIMAL];
                                 if(decimalActualSegundo == decimalSiguienteSegundo){
-                                    throw new Exception("ERROR, segundos decimales repetidos.");
+                                    throw new UnsupportedOperationException("ERROR, segundos decimales repetidos.");
                                 }else{
                                     aux[k].getElegidos()[i]++;
                                 }
@@ -177,7 +176,7 @@ class Calculadora2 {
                                 int decimalActualSegundo = aux[k].getNumerosRatios()[i][SEGUNDO_DECIMAL];
                                 int decimalSiguienteSegundo = aux[k+1].getNumerosRatios()[i][SEGUNDO_DECIMAL];
                                 if(decimalActualSegundo == decimalSiguienteSegundo){
-                                    throw new Exception("ERROR, segundos decimales repetidos.");
+                                    throw new UnsupportedOperationException("ERROR, segundos decimales repetidos.");
                                 }else{
                                     aux[k].getElegidos()[i]++;
                                 }

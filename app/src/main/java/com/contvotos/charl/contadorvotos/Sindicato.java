@@ -1,6 +1,9 @@
 package com.contvotos.charl.contadorvotos;
 
 public class Sindicato {
+    private static final int NUMERO_DE_RATIOS = 3;
+    private final int NUMERO_COLEGIOS = 2;
+
     private String nombre;
     private int votos;
 
@@ -19,10 +22,10 @@ public class Sindicato {
 
     Sindicato(String nombre) {
         this.votos = 0;
-        this.elegidos = new int[3];
+        this.elegidos = new int[NUMERO_COLEGIOS];
         this.nombre = nombre;
-        ratios = new float[3];
-        numerosRatios = new int[ratios.length][3];
+        ratios = new float[NUMERO_COLEGIOS];
+        numerosRatios = new int[NUMERO_COLEGIOS][NUMERO_DE_RATIOS];
     }
 
     public int[] getElegidos() {
@@ -76,7 +79,6 @@ public class Sindicato {
                 ", votos= " + votos +
                 ", elegidos tecs= "+getElegidos()[0]+
                 ", elegidos esps= "+getElegidos()[1]+
-                ", elegidos otro= "+getElegidos()[2]+
                 " }";
     }
 }

@@ -60,8 +60,12 @@ public class MainActivity extends AppCompatActivity {
                 Calculadora2 c = new Calculadora2();
                 if(c.compruebaSumaColegios(colegios.toArray(new Colegio[0]))) {
                     //muestraDatos();
-                    c.calcular(listaSindicatos.toArray(new Sindicato[0]), colegios.toArray(new Colegio[0]));
-                    muestraDatos();
+                    try {
+                        c.calcular(listaSindicatos.toArray(new Sindicato[0]), colegios.toArray(new Colegio[0]));
+                        muestraDatos();
+                    }catch (UnsupportedOperationException ex){
+                        Toast.makeText(v.getContext(), "Error: "+ex.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 }else{
                     Toast.makeText(v.getContext(), "Error, la suma de los colegios no concuerda", Toast.LENGTH_LONG).show();
                 }
@@ -69,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //region Codigo innecesario
     private View.OnClickListener listener = new View.OnClickListener() {
         public void onClick(View v) {
             switch (v.getId()){
@@ -150,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+    //endregion
 
     private void asignaClickListeners(){
         findViewById(R.id.btn_mas_ccoo).setOnClickListener(listener);
@@ -178,11 +184,10 @@ public class MainActivity extends AppCompatActivity {
             sb.append(
                     String.format(
                             Locale.getDefault(),
-                            "%s:, Tecnicos: %d, Especialistas: %d, Otros: %d\n",
+                            "%s:, Tecnicos: %d, Especialistas: %d\n",
                             s.getNombre(),
                             s.getElegidos()[0],
-                            s.getElegidos()[1],
-                            s.getElegidos()[2]
+                            s.getElegidos()[1]
                     )
             );
         }
@@ -201,11 +206,9 @@ public class MainActivity extends AppCompatActivity {
     private void rellenaColegios(){
         EditText tec = findViewById(R.id.txt_tecnicos);
         EditText esp = findViewById(R.id.txt_especialistas);
-        EditText otro = findViewById(R.id.txt_otros);
         colegios.clear();
         colegios.add(new Colegio( "Tecnicos",Integer.parseInt(tec.getText().toString())));
         colegios.add(new Colegio( "Especialistas",Integer.parseInt(esp.getText().toString())));
-        colegios.add(new Colegio( "Otros",Integer.parseInt(otro.getText().toString())));
     }
 
     private void rellenaSindicatosValor(){
