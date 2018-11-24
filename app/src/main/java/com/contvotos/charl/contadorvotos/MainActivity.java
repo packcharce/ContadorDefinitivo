@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Sindicato> listaSindicatos;
     ArrayList<Colegio> colegios;
-    Button btn_calcular;
+    Button btn_calcular, btn_calcular_tecs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.setAdapter(mAdapter);
 
-        btn_calcular = findViewById(R.id.btn_calcular);
+        btn_calcular_tecs = findViewById(R.id.btn_calcular_tecs);
+        btn_calcular = findViewById(R.id.btn_calcular_esp);
         btn_calcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,17 +59,37 @@ public class MainActivity extends AppCompatActivity {
                 rellenaColegios();
 
                 Calculadora2 c = new Calculadora2();
-                if(c.compruebaSumaColegios(colegios.toArray(new Colegio[0]))) {
+                //if(c.compruebaSumaColegios(colegios.toArray(new Colegio[0]))) {
                     //muestraDatos();
                     try {
                         c.calcular(listaSindicatos.toArray(new Sindicato[0]), colegios.toArray(new Colegio[0]));
-                        muestraDatos();
+                        muestraDatos(2);
                     }catch (UnsupportedOperationException ex){
                         Toast.makeText(v.getContext(), "Error: "+ex.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                }else{
-                    Toast.makeText(v.getContext(), "Error, la suma de los colegios no concuerda", Toast.LENGTH_LONG).show();
-                }
+                //}else{
+                 //   Toast.makeText(v.getContext(), "Error, la suma de los colegios no concuerda", Toast.LENGTH_LONG).show();
+                //}
+            }
+        });
+        btn_calcular_tecs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                rellenaColegios();
+
+                Calculadora2 c = new Calculadora2();
+//                if(c.compruebaSumaColegios(colegios.toArray(new Colegio[0]))) {
+                    //muestraDatos();
+                    try {
+                        c.calcular(listaSindicatos.toArray(new Sindicato[0]), colegios.toArray(new Colegio[0]));
+                        muestraDatos(1);
+                    }catch (UnsupportedOperationException ex){
+                        Toast.makeText(v.getContext(), "Error: "+ex.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+//                }else{
+//                    Toast.makeText(v.getContext(), "Error, la suma de los colegios no concuerda", Toast.LENGTH_LONG).show();
+//                }
             }
         });
     }
@@ -177,19 +198,35 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_menos_nulos).setOnClickListener(listener);
     }
 
-    private void muestraDatos() {
+    private void muestraDatos(int colegio) {
         StringBuilder sb = new StringBuilder();
-        for (Sindicato s: listaSindicatos) {
-            System.out.println(s.toString());
-            sb.append(
-                    String.format(
-                            Locale.getDefault(),
-                            "%s:, Tecnicos: %d, Especialistas: %d\n",
-                            s.getNombre(),
-                            s.getElegidos()[0],
-                            s.getElegidos()[1]
-                    )
-            );
+        switch (colegio){
+            case 1:
+                for (Sindicato s: listaSindicatos) {
+                    System.out.println(s.toString());
+                    sb.append(
+                            String.format(
+                                    Locale.getDefault(),
+                                    "%s: Tecnicos:\t %d\n",
+                                    s.getNombre(),
+                                    s.getElegidos()[0]
+                            )
+                    );
+                }
+                break;
+            case 2:
+                for (Sindicato s: listaSindicatos) {
+                    System.out.println(s.toString());
+                    sb.append(
+                            String.format(
+                                    Locale.getDefault(),
+                                    "%s: Especialistas:\t %d\n",
+                                    s.getNombre(),
+                                    s.getElegidos()[1]
+                            )
+                    );
+                }
+                break;
         }
         for (Colegio c : colegios)
             System.out.println(c.toString());
