@@ -10,10 +10,11 @@ class Calculadora2 {
 
     /**
      * Paso 1
+     *
      * @param representantes array de colegios (tecnicos, especialistas y otros)
      * @return true si la suma es correcta, false si no lo es
      */
-     boolean compruebaSumaColegios(Colegio[] representantes) {
+    boolean compruebaSumaColegios(Colegio[] representantes) {
         boolean res = false;
         int aux = 0;
         for (Colegio c : representantes) {
@@ -28,11 +29,12 @@ class Calculadora2 {
 
     /**
      * Paso 4
-     * @param sindicato sindicato al que calcular ratios
+     *
+     * @param sindicato    sindicato al que calcular ratios
      * @param votosTotales numero de votos totales
      * @param votosBlancos numero de votos en blanco
-     * @param votosNulos numero de votos nulos
-     * @param colegios array con los colegios (tecnicos, especialistas)
+     * @param votosNulos   numero de votos nulos
+     * @param colegios     array con los colegios (tecnicos, especialistas)
      */
     static void calculaRatiosSindicato(Sindicato sindicato, int votosTotales, int votosBlancos, int votosNulos, Colegio[] colegios) {
         int numVotosValidos = votosTotales - votosBlancos - votosNulos;
@@ -40,13 +42,14 @@ class Calculadora2 {
         // 0 => tecnicos
         // 1 => especialistas
         for (int i = 0; i < colegios.length; i++) {
-            if(numVotosValidos != 0)
+            if (numVotosValidos != 0)
                 sindicato.getRatios()[i] = ((colegios[i].getRepresentantes() * 1.0f) / numVotosValidos * 1.0f) * (sindicato.getVotos() * 1.0f);
         }
     }
 
     /**
      * Paso 3
+     *
      * @param listaSindicatos array con los sindicatos
      * @return numero de votos totales entre todos los sindicatos
      */
@@ -62,6 +65,7 @@ class Calculadora2 {
     /**
      * Paso 5.1
      * Extrae los numeros de los ratios y las guarda en array
+     *
      * @param sindicato sindicato al que extraer los enteros
      */
     static void extraeNumerosDeRatios(Sindicato sindicato) {
@@ -86,6 +90,7 @@ class Calculadora2 {
 
     /**
      * Paso 5.2 asigna los valores de la parte entera como representantes
+     *
      * @param s sindicato al que tratar
      */
     static void asignaVotosASindicato(Sindicato s) {
@@ -98,29 +103,30 @@ class Calculadora2 {
      * Paso 5.3
      * Comprueba si la suma de todos los enteros extraidos son
      * el total de representantes necesarios
+     *
      * @param listaSindicatos lista de los sindicatos a tratar
      * @return el numero de representantes extra que hay que sacar de
      * los decimales
      */
-    private static int compruebaTotalEnteros(Sindicato[] listaSindicatos, int maxRepresentantesColegio, int colegio){
-        int sumaTotal=0;
-        for(int i = 0; i < listaSindicatos.length-RESTA_NO_SINDICATOS; i++){
+    private static int compruebaTotalEnteros(Sindicato[] listaSindicatos, int maxRepresentantesColegio, int colegio) {
+        int sumaTotal = 0;
+        for (int i = 0; i < listaSindicatos.length - RESTA_NO_SINDICATOS; i++) {
 
             sumaTotal += listaSindicatos[i].getNumerosRatios()[colegio][0];
 
         }
-        if(sumaTotal == maxRepresentantesColegio){
+        if (sumaTotal == maxRepresentantesColegio) {
             return 0;
-        }else{
+        } else {
             return maxRepresentantesColegio - sumaTotal;
         }
     }
 
-    static void asignaVotos(Sindicato[] sindicatos, Colegio[] colegios) throws Exception {
-        final int PRIMER_DECIMAL = 1, SEGUNDO_DECIMAL = 2, PARTE_ENTERA = 0;
+    static void asignaVotos(Sindicato[] sindicatos, Colegio[] colegios) {
+        final int PRIMER_DECIMAL = 1, SEGUNDO_DECIMAL = 2;
 
         for (int i = 0; i < colegios.length; i++) {
-            if(colegios[i].getRepresentantes() != 0){
+            if (colegios[i].getRepresentantes() != 0) {
 
 
                 int maxRepresentantesExtra = compruebaTotalEnteros(sindicatos, colegios[i].getRepresentantes(), i);
@@ -131,61 +137,60 @@ class Calculadora2 {
 
                     int decimalActual = sindicatos[j].getNumerosRatios()[i][PRIMER_DECIMAL];
                     int decimalSiguiente = sindicatos[j + 1].getNumerosRatios()[i][PRIMER_DECIMAL];
-                    if(decimalActual == decimalSiguiente){
+                    if (decimalActual == decimalSiguiente) {
 
 
                         //region Si se repiten
                         Sindicato[] listaRepetidos = extraeSindicatosRepetidos(sindicatos, i, PRIMER_DECIMAL, decimalActual);
 
-                        if(listaRepetidos.length == (maxRepresentantesExtra - j)){
+                        if (listaRepetidos.length == (maxRepresentantesExtra - j)) {
                             Sindicato[] aux = Arrays.copyOf(listaRepetidos, listaRepetidos.length);
                             ordenaPorColegioYDecimal(aux, i, SEGUNDO_DECIMAL);
 
-                            for (int k = 0; k < aux.length-1; k++) {
+                            for (int k = 0; k < aux.length - 1; k++) {
                                 int decimalActualSegundo = aux[k].getNumerosRatios()[i][SEGUNDO_DECIMAL];
-                                int decimalSiguienteSegundo = aux[k+1].getNumerosRatios()[i][SEGUNDO_DECIMAL];
-                                if(decimalActualSegundo == decimalSiguienteSegundo){
+                                int decimalSiguienteSegundo = aux[k + 1].getNumerosRatios()[i][SEGUNDO_DECIMAL];
+                                if (decimalActualSegundo == decimalSiguienteSegundo) {
                                     throw new UnsupportedOperationException("ERROR, segundos decimales repetidos.");
-                                }else{
+                                } else {
                                     aux[k].getElegidos()[i]++;
                                 }
                             }
-                            aux[aux.length-1].getElegidos()[i]++;
+                            aux[aux.length - 1].getElegidos()[i]++;
                             break;
-                        }else if(listaRepetidos.length < (maxRepresentantesExtra - j)){
+                        } else if (listaRepetidos.length < (maxRepresentantesExtra - j)) {
                             Sindicato[] aux = Arrays.copyOf(listaRepetidos, listaRepetidos.length);
                             ordenaPorColegioYDecimal(aux, i, SEGUNDO_DECIMAL);
 
-                            for (int k = 0; k < aux.length-1; k++) {
+                            for (int k = 0; k < aux.length - 1; k++) {
                                 int decimalActualSegundo = aux[k].getNumerosRatios()[i][SEGUNDO_DECIMAL];
-                                int decimalSiguienteSegundo = aux[k+1].getNumerosRatios()[i][SEGUNDO_DECIMAL];
-                                if(decimalActualSegundo == decimalSiguienteSegundo){
+                                int decimalSiguienteSegundo = aux[k + 1].getNumerosRatios()[i][SEGUNDO_DECIMAL];
+                                if (decimalActualSegundo == decimalSiguienteSegundo) {
                                     throw new UnsupportedOperationException("ERROR, segundos decimales repetidos.");
-                                }else{
+                                } else {
                                     aux[k].getElegidos()[i]++;
                                 }
                             }
-                            aux[aux.length-1].getElegidos()[i]++;
+                            aux[aux.length - 1].getElegidos()[i]++;
 
 
-                        }else if(listaRepetidos.length > (maxRepresentantesExtra - j)){
+                        } else if (listaRepetidos.length > (maxRepresentantesExtra - j)) {
                             Sindicato[] aux = Arrays.copyOf(listaRepetidos, listaRepetidos.length);
                             ordenaPorColegioYDecimal(aux, i, SEGUNDO_DECIMAL);
 
                             for (int k = 0; k < (maxRepresentantesExtra - j); k++) {
                                 int decimalActualSegundo = aux[k].getNumerosRatios()[i][SEGUNDO_DECIMAL];
-                                int decimalSiguienteSegundo = aux[k+1].getNumerosRatios()[i][SEGUNDO_DECIMAL];
-                                if(decimalActualSegundo == decimalSiguienteSegundo){
+                                int decimalSiguienteSegundo = aux[k + 1].getNumerosRatios()[i][SEGUNDO_DECIMAL];
+                                if (decimalActualSegundo == decimalSiguienteSegundo) {
                                     throw new UnsupportedOperationException("ERROR, segundos decimales repetidos.");
-                                }else{
+                                } else {
                                     aux[k].getElegidos()[i]++;
                                 }
                             }
                             break;
                         }
                         //endregion
-                    }
-                    else{
+                    } else {
 
                         //region Si no se repiten
                         sindicatos[j].getElegidos()[i]++;
@@ -199,15 +204,16 @@ class Calculadora2 {
 
     /**
      * Extrae un array con los sindicatos con decimales repetidos, para asignarlos aparte
-     * @param sindicatos
-     * @param posDecimal
+     *
+     * @param sindicatos        lista sindicatos
+     * @param posDecimal        posicion decimal para comprobar para extraer
      * @param numeroQueSeRepite este numero es para que no saque todos los repetidos, sino solo el que quiero
      * @return array con los sindicatos que repiten decimales
      */
-    private static Sindicato[] extraeSindicatosRepetidos(Sindicato[] sindicatos,int colegio, int posDecimal, int numeroQueSeRepite) {
+    private static Sindicato[] extraeSindicatosRepetidos(Sindicato[] sindicatos, int colegio, int posDecimal, int numeroQueSeRepite) {
         ArrayList<Sindicato> aux = new ArrayList<>();
-        for (int i = 0; i < sindicatos.length-1; i++) {
-            if(sindicatos[i].getNumerosRatios()[colegio][posDecimal] == numeroQueSeRepite){
+        for (int i = 0; i < sindicatos.length - 1; i++) {
+            if (sindicatos[i].getNumerosRatios()[colegio][posDecimal] == numeroQueSeRepite) {
                 aux.add(sindicatos[i]);
             }
         }
@@ -230,7 +236,7 @@ class Calculadora2 {
         }
     }
 
-    void calcular(Sindicato[] listaSindicatos, Colegio[] listaColegios){
+    void calcular(Sindicato[] listaSindicatos, Colegio[] listaColegios) {
         for (Sindicato s : listaSindicatos) {
             Calculadora2.calculaRatiosSindicato(
                     s,
@@ -244,10 +250,7 @@ class Calculadora2 {
             Calculadora2.asignaVotosASindicato(s);
         }
 
-        try {
-            asignaVotos(Arrays.copyOf(listaSindicatos, listaSindicatos.length - 2), listaColegios);
-        }catch (Exception e){
+        asignaVotos(Arrays.copyOf(listaSindicatos, listaSindicatos.length - 2), listaColegios);
 
-        }
     }
 }

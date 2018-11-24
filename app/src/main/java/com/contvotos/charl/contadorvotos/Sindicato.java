@@ -1,8 +1,9 @@
 package com.contvotos.charl.contadorvotos;
 
+import android.support.annotation.NonNull;
+
 public class Sindicato {
     private static final int NUMERO_DE_RATIOS = 3;
-    private final int NUMERO_COLEGIOS = 2;
 
     private String nombre;
     private int votos;
@@ -22,26 +23,19 @@ public class Sindicato {
 
     Sindicato(String nombre) {
         this.votos = 0;
+        int NUMERO_COLEGIOS = 2;
         this.elegidos = new int[NUMERO_COLEGIOS];
         this.nombre = nombre;
         ratios = new float[NUMERO_COLEGIOS];
         numerosRatios = new int[NUMERO_COLEGIOS][NUMERO_DE_RATIOS];
     }
 
-    public int[] getElegidos() {
+    int[] getElegidos() {
         return elegidos;
-    }
-
-    public void setElegidos(int[] elegidos) {
-        this.elegidos = elegidos;
     }
 
     int[][] getNumerosRatios() {
         return numerosRatios;
-    }
-
-    public void setNumerosRatios(int[][] numerosRatios) {
-        this.numerosRatios = numerosRatios;
     }
 
     int getVotos() {
@@ -56,22 +50,15 @@ public class Sindicato {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     float[] getRatios() {
         return ratios;
-    }
-
-    public void setRatios(float[] ratios) {
-        this.ratios = ratios;
     }
 
     int compareTo(Sindicato sindicato, int colegio, int decimal){
         return Integer.compare(sindicato.getNumerosRatios()[colegio][decimal], this.getNumerosRatios()[colegio][decimal]);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Sindicato{ " +

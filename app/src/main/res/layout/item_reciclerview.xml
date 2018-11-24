@@ -13,7 +13,6 @@
         android:layout_marginStart="16dp"
         android:layout_weight="2"
         android:gravity="center_vertical"
-        android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_weight="1"
-        android:text="+"
+        android:text="@string/btn_mas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/num_votos_ccoo"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,7 +36,7 @@
         android:layout_weight="1"
         android:digits='"0123456789"'
         android:gravity="center"
-        android:hint="0"
+        android:hint="@string/txt_num_voto_hint"
         android:inputType="numberSigned"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_menos_ccoo"
@@ -51,7 +50,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_weight="1"
-        android:text="-"
+        android:text="@string/btn_menos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/num_votos_ccoo"
