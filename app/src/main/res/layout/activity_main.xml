@@ -37,11 +37,11 @@
                     android:layout_weight="1"
                     android:text="+"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/num_votos_ccoo"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/num_votos_ccoo"
+                    android:id="@+id/txt_num_votos"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -52,8 +52,8 @@
                     android:hint="0"
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_menos_ccoo"
-                    app:layout_constraintStart_toEndOf="@+id/btn_mas_ugt"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_menos"
+                    app:layout_constraintStart_toEndOf="@+id/btn_mas"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
@@ -66,7 +66,7 @@
                     android:text="-"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/num_votos_ccoo"
+                    app:layout_constraintStart_toEndOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -95,7 +95,7 @@
                     android:layout_weight="1"
                     android:text="+"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/num_votos_ccoo"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
@@ -110,8 +110,8 @@
                     android:hint="0"
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_menos_ccoo"
-                    app:layout_constraintStart_toEndOf="@+id/btn_mas_ugt"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_menos"
+                    app:layout_constraintStart_toEndOf="@+id/btn_mas"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
@@ -124,7 +124,7 @@
                     android:text="-"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/num_votos_ccoo"
+                    app:layout_constraintStart_toEndOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -153,7 +153,7 @@
                     android:layout_weight="1"
                     android:text="+"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/num_votos_ccoo"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
@@ -168,8 +168,8 @@
                     android:hint="0"
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_menos_ccoo"
-                    app:layout_constraintStart_toEndOf="@+id/btn_mas_ugt"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_menos"
+                    app:layout_constraintStart_toEndOf="@+id/btn_mas"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
@@ -182,7 +182,7 @@
                     android:text="-"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/num_votos_ccoo"
+                    app:layout_constraintStart_toEndOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -211,7 +211,7 @@
                     android:layout_weight="1"
                     android:text="+"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/num_votos_ccoo"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
@@ -226,8 +226,8 @@
                     android:hint="0"
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_menos_ccoo"
-                    app:layout_constraintStart_toEndOf="@+id/btn_mas_ugt"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_menos"
+                    app:layout_constraintStart_toEndOf="@+id/btn_mas"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
@@ -240,7 +240,7 @@
                     android:text="-"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/num_votos_ccoo"
+                    app:layout_constraintStart_toEndOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -269,7 +269,7 @@
                     android:layout_weight="1"
                     android:text="+"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/num_votos_ccoo"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
@@ -284,8 +284,8 @@
                     android:hint="0"
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_menos_ccoo"
-                    app:layout_constraintStart_toEndOf="@+id/btn_mas_ugt"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_menos"
+                    app:layout_constraintStart_toEndOf="@+id/btn_mas"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
@@ -298,7 +298,7 @@
                     android:text="-"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/num_votos_ccoo"
+                    app:layout_constraintStart_toEndOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -327,7 +327,7 @@
                     android:layout_weight="1"
                     android:text="+"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/num_votos_ccoo"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
@@ -342,8 +342,8 @@
                     android:hint="0"
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_menos_ccoo"
-                    app:layout_constraintStart_toEndOf="@+id/btn_mas_ugt"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_menos"
+                    app:layout_constraintStart_toEndOf="@+id/btn_mas"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
@@ -356,7 +356,7 @@
                     android:text="-"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/num_votos_ccoo"
+                    app:layout_constraintStart_toEndOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -385,7 +385,7 @@
                     android:layout_weight="1"
                     android:text="+"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/num_votos_ccoo"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
@@ -400,8 +400,8 @@
                     android:hint="0"
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_menos_ccoo"
-                    app:layout_constraintStart_toEndOf="@+id/btn_mas_ugt"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_menos"
+                    app:layout_constraintStart_toEndOf="@+id/btn_mas"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
@@ -414,7 +414,7 @@
                     android:text="-"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/num_votos_ccoo"
+                    app:layout_constraintStart_toEndOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -443,7 +443,7 @@
                     android:layout_weight="1"
                     android:text="+"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/num_votos_ccoo"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
@@ -458,8 +458,8 @@
                     android:hint="0"
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_menos_ccoo"
-                    app:layout_constraintStart_toEndOf="@+id/btn_mas_ugt"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_menos"
+                    app:layout_constraintStart_toEndOf="@+id/btn_mas"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
@@ -472,7 +472,7 @@
                     android:text="-"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/num_votos_ccoo"
+                    app:layout_constraintStart_toEndOf="@+id/txt_num_votos"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 

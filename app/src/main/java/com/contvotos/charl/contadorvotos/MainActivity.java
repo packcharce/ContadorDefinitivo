@@ -56,19 +56,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                rellenaColegios();
 
-                Calculadora2 c = new Calculadora2();
-                //if(c.compruebaSumaColegios(colegios.toArray(new Colegio[0]))) {
+                if(!areColegiosVacios()) {
+                    rellenaColegios();
+
+                    Calculadora2 c = new Calculadora2();
+                    //if(c.compruebaSumaColegios(colegios.toArray(new Colegio[0]))) {
                     //muestraDatos();
                     try {
                         c.calcular(listaSindicatos.toArray(new Sindicato[0]), colegios.toArray(new Colegio[0]));
                         muestraDatos(2);
-                    }catch (UnsupportedOperationException ex){
-                        Toast.makeText(v.getContext(), "Error: "+ex.getMessage(), Toast.LENGTH_LONG).show();
+                    } catch (UnsupportedOperationException ex) {
+                        Toast.makeText(v.getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
                     }
+
+                }else{
+                    Toast.makeText(v.getContext(), getString(R.string.error_sin_representantes), Toast.LENGTH_LONG).show();
+                }
                 //}else{
-                 //   Toast.makeText(v.getContext(), "Error, la suma de los colegios no concuerda", Toast.LENGTH_LONG).show();
+                //   Toast.makeText(v.getContext(), "Error, la suma de los colegios no concuerda", Toast.LENGTH_LONG).show();
                 //}
             }
         });
@@ -76,22 +82,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                rellenaColegios();
+                if(!areColegiosVacios()) {
+                    rellenaColegios();
 
-                Calculadora2 c = new Calculadora2();
+                    Calculadora2 c = new Calculadora2();
 //                if(c.compruebaSumaColegios(colegios.toArray(new Colegio[0]))) {
                     //muestraDatos();
                     try {
                         c.calcular(listaSindicatos.toArray(new Sindicato[0]), colegios.toArray(new Colegio[0]));
                         muestraDatos(1);
                     }catch (UnsupportedOperationException ex){
-                        Toast.makeText(v.getContext(), "Error: "+ex.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(v.getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                }else{
+                    Toast.makeText(v.getContext(), getString(R.string.error_sin_representantes), Toast.LENGTH_LONG).show();
+                }
 //                }else{
 //                    Toast.makeText(v.getContext(), "Error, la suma de los colegios no concuerda", Toast.LENGTH_LONG).show();
 //                }
             }
         });
+    }
+
+    /**
+     * Comprueba si estan vacio algun colegio
+     * @return true si esta vacio algun colegio
+     */
+    private boolean areColegiosVacios() {
+        return ((EditText)findViewById(R.id.txt_tecnicos)).getText().toString().equals("")
+                || ((EditText)findViewById(R.id.txt_especialistas)).getText().toString().equals("");
     }
 
     private void muestraDatos(int colegio) {

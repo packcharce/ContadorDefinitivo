@@ -2,11 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="35dp"
+    android:focusable="auto"
     android:gravity="center"
     android:orientation="horizontal">
 
-    <TextView
+    <ImageView
+        android:id="@+id/logo_sindicato"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_vertical|start"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="3"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/ccoo" />
+
+    <!--<TextView
         android:id="@+id/nombre_sind"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -14,9 +28,9 @@
         android:layout_weight="2"
         android:gravity="center_vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
+    <!--<Button
         android:id="@+id/btn_mas_ugt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -25,10 +39,10 @@
         android:text="@string/btn_mas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/num_votos_ccoo"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
     <EditText
-        android:id="@+id/num_votos_ccoo"
+        android:id="@+id/txt_num_votos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -38,22 +52,23 @@
         android:gravity="center"
         android:hint="@string/txt_num_voto_hint"
         android:inputType="numberSigned"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_menos_ccoo"
-        app:layout_constraintStart_toEndOf="@+id/btn_mas_ugt"
+        app:layout_constraintEnd_toStartOf="@+id/btn_menos"
+        app:layout_constraintStart_toEndOf="@+id/btn_mas"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_menos_ccoo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="1"
-        android:text="@string/btn_menos"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/num_votos_ccoo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+    <!--<Button-->
+    <!--android:id="@+id/btn_menos_ccoo"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:text="@string/btn_menos"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/num_votos_ccoo"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintVertical_bias="0.0" />-->
 </LinearLayout>

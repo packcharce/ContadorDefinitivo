@@ -1,12 +1,13 @@
 <resources>
-    <string name="app_name">ContadorVotos</string>
-    <string name="txt_tecnicos">Tecnicos</string>
+    <string name="app_name">Contador de votos</string>
+    <string name="txt_tecnicos">Técnicos</string>
     <string name="txt_especialistas">Especialistas</string>
-    <string name="btn_calc_esp">Calc.Esp</string>
-    <string name="btn_calc_tecs">Calc.Tecs</string>
+    <string name="btn_calc_esp">Calcular\nEspec.</string>
+    <string name="btn_calc_tecs">Calcular\nTécs.</string>
     <string name="btn_mas">+</string>
     <string name="txt_num_voto_hint">0</string>
     <string name="btn_menos">-</string>
+    <string name="error_sin_representantes">Error: colegio sin representantes.</string>
 
     <array name="listaNombres">
         <item>CCOO</item>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="sindicatos">
+        <item>@drawable/ccoo</item>
+        <item>@drawable/ugt</item>
+        <item>@drawable/uso</item>
+        <item>@drawable/csif</item>
+        <item>@drawable/independientes</item>
+        <item>@drawable/suc</item>
+        <item>@drawable/blancos</item>
+        <item>@drawable/nulos</item>
+    </integer-array>
+</resources>

@@ -10,81 +10,92 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:focusable="auto"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerPrinc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/txt_tecnicos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:ems="10"
+            android:layout_weight="2"
             android:hint="@string/txt_tecnicos"
             android:inputType="numberSigned"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/txt_especialistas"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerPrinc" />
 
         <EditText
             android:id="@+id/txt_especialistas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:ems="10"
+            android:layout_weight="2"
             android:hint="@string/txt_especialistas"
             android:inputType="numberSigned"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/txt_tecnicos"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerPrinc"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerPrinc" />
+
+        <Button
+            android:id="@+id/btn_calcular_tecs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="2"
+            android:background="@drawable/botones"
+            android:text="@string/btn_calc_tecs"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/btn_calcular_esp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="2"
+            android:background="@drawable/botones"
+            android:text="@string/btn_calc_esp"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerPrinc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <Button
-        android:id="@+id/btn_calcular_esp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/btn_calc_esp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerPrinc" />
-
-    <Button
-        android:id="@+id/btn_calcular_tecs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/btn_calc_tecs"
-        app:layout_constraintEnd_toStartOf="@+id/btn_calcular_esp"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerPrinc" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_calcular_tecs">
+        app:layout_constraintTop_toBottomOf="@+id/recyclerPrinc">
 
         <LinearLayout
             android:layout_width="match_parent"
