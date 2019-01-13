@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -26,7 +27,7 @@ public class MyAdapter extends RecyclerView.Adapter {
         //TextView nombreSindicato;
         ImageView logo_sindicato;
         EditText numVotos;
-        // Button anhade, quita;
+        Button anhade, quita;
         private WeakReference<ClickListener> listenerRef;
         SindicatoViewHolder(View v, ClickListener clickListener) {
             super(v);
@@ -34,12 +35,12 @@ public class MyAdapter extends RecyclerView.Adapter {
             listenerRef = new WeakReference<>(clickListener);
             //nombreSindicato = v.findViewById(R.id.nombre_sind);
             logo_sindicato = v.findViewById(R.id.logo_sindicato);
-//            anhade = v.findViewById(R.id.btn_mas_ugt);
-//            quita = v.findViewById(R.id.btn_menos_ccoo);
+            anhade = v.findViewById(R.id.btn_mas);
+            quita = v.findViewById(R.id.btn_menos);
             numVotos = v.findViewById(R.id.txt_num_votos);
 
-//            anhade.setOnClickListener(this);
-//            quita.setOnClickListener(this);
+            anhade.setOnClickListener(this);
+            quita.setOnClickListener(this);
 
             numVotos.setOnClickListener(this);
         }
@@ -63,7 +64,7 @@ public class MyAdapter extends RecyclerView.Adapter {
                     }
                     break;
                 case R.id.txt_num_votos:
-                    //listaSindicatos.get(getAdapterPosition()).setVotos(numVotosAux);
+                    listaSindicatos.get(getAdapterPosition()).setVotos(numVotosAux);
                     break;
             }
             listaSindicatos.get(getAdapterPosition()).setVotos(numVotosAux);
