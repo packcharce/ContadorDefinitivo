@@ -4,9 +4,8 @@
         <item>@drawable/ccoo</item>
         <item>@drawable/ugt</item>
         <item>@drawable/uso</item>
-        <item>@drawable/csif</item>
-        <item>@drawable/independientes</item>
-        <item>@drawable/suc</item>
+        <item>@drawable/otros</item>
+        <item>@drawable/otros2</item>
         <item>@drawable/blancos</item>
         <item>@drawable/nulos</item>
     </integer-array>

@@ -241,8 +241,8 @@ class Calculadora2 {
             Calculadora2.calculaRatiosSindicato(
                     s,
                     Calculadora2.calculaTotalVotos(listaSindicatos),
-                    listaSindicatos[6].getVotos(),
-                    listaSindicatos[7].getVotos(),
+                    listaSindicatos[listaSindicatos.length-2].getVotos(),
+                    listaSindicatos[listaSindicatos.length-1].getVotos(),
                     listaColegios
             );
 
